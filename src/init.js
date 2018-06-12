@@ -2,6 +2,8 @@ import Example from './Example';
 
 export default () => {
   const element = document.getElementById('point');
-  const obj = new Example(element);
-  obj.init();
+  if (element) {
+    const obj = new Example(element);
+    obj.init();
+  }
 };
