@@ -1,8 +1,7 @@
 # javascript-package
 
-[![Code Climate](https://codeclimate.com/github/hexlet-boilerplates/webpack-package/badges/gpa.svg)](https://codeclimate.com/github/hexlet-boilerplates/webpack-package)
-[![Issue Count](https://codeclimate.com/github/hexlet-boilerplates/webpack-package/badges/issue_count.svg)](https://codeclimate.com/github/hexlet-boilerplates/webpack-package)
-[![Build Status](https://travis-ci.org/hexlet-boilerplates/webpack-package.svg?branch=master)](https://travis-ci.org/hexlet-boilerplates/webpack-package)
+[![Maintainability](https://api.codeclimate.com/v1/badges/5938ee5974dcabbbf9b2/maintainability)](https://codeclimate.com/github/AnDeVerin/project-lvl3-s258/maintainability)
+[![Build Status](https://travis-ci.org/AnDeVerin/project-lvl3-s258.svg?branch=master)](https://travis-ci.org/AnDeVerin/project-lvl3-s258)
 
 ## Setup
 
