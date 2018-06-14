@@ -8,14 +8,14 @@
 </head>
 
 <body>
-  <div class="container mt-3">
+  <div class="container mt-3" id="app">
     <div class="jumbotron">
       <h1 class="display-4">RSS Reader</h1>
-      <form class="form-inline">
+      <form class="form-inline" id="inputForm">
         <div class="form-group">
           <label for="inputRss">New RSS</label>
-          <input type="text" id="inputRss" class="form-control mx-sm-4 mb-3 mb-sm-0">
-          <button type="submit" class="btn btn-primary">Add</button>
+          <input type="text" id="feedInput" class="form-control mx-sm-4 mb-3 mb-sm-0">
+          <button type="submit" class="btn btn-primary" disabled>Add</button>
         </div>
       </form>
     </div>
@@ -23,30 +23,11 @@
     <div class="row">
       <div class="col-lg-4">
         <h4>RSS feeds:</h4>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item">
-            <h6 class="mb-1" data-feed="title">Cras justo odio</h6>
-            <p class="small mb-1" data-feed="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </li>
-          <li class="list-group-item">
-            <h6 class="mb-1" data-feed="title">Morbi leo risus</h6>
-            <p class="small mb-1" data-feed="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </li>
-          <li class="list-group-item">
-            <h6 class="mb-1" data-feed="title">Vestibulum at eros</h6>
-            <p class="small mb-1" data-feed="description">Lorem ipsum dolor, sit amet consectetur adipisicing elit.</p>
-          </li>
-        </ul>
+        <ul class="list-group list-group-flush" id="feedList"></ul>
       </div>
       <div class="col-lg-8 mt-4 mt-lg-0">
         <h4>Articles:</h4>
-        <div class="list-group list-group-flush">
-          <a href="#" class="list-group-item list-group-item-action" data-feed="article">Dapibus ac facilisis in</a>
-          <a href="#" class="list-group-item list-group-item-action" data-feed="article">Morbi leo risus</a>
-          <a href="#" class="list-group-item list-group-item-action" data-feed="article">Porta ac consectetur ac</a>
-          <a href="#" class="list-group-item list-group-item-action" data-feed="article">Vestibulum at eros</a>
-          <a href="#" class="list-group-item list-group-item-action" data-feed="article">Dapibus ac facilisis in</a>
-        </div>
+        <div class="list-group list-group-flush" id="articleList"></div>
       </div>
     </div>
   </div>

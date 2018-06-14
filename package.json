@@ -23,7 +23,9 @@
   },
   "homepage": "https://github.com/AnDeVerin/project-lvl3-s258#readme",
   "dependencies": {
-    "bootstrap": "^4.1.1"
+    "axios": "^0.18.0",
+    "bootstrap": "^4.1.1",
+    "validator": "^10.3.0"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.3",
