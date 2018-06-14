@@ -21,8 +21,10 @@ export default () => {
         state.addFeed(url, channel);
         renderer.renderFeedList(state);
         renderer.renderArticleList(state);
+        inputForm.clearFormState();
       })
       .catch((error) => {
+        inputForm.setUrlError();
         console.log(error);
       });
   };
@@ -30,14 +32,13 @@ export default () => {
   inputFormElem.addEventListener('submit', (e) => {
     e.preventDefault();
     const newFeedUrl = inputForm.getValue();
-    inputForm.clearFormState();
+    inputForm.setWaitMode();
     console.log(newFeedUrl);
     addNewFeed(newFeedUrl);
   });
 
 
-  // это для примера
-  addNewFeed('http://lorem-rss.herokuapp.com/feed');
-  addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=30');
-  addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second');
+  // addNewFeed('http://lorem-rss.herokuapp.com/feed');
+  // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=30');
+  // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second');
 };

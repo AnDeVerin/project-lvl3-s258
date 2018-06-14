@@ -8,15 +8,21 @@
 </head>
 
 <body>
-  <div class="container mt-3" id="app">
+  <div class="container mt-2" id="app">
     <div class="jumbotron">
       <h1 class="display-4">RSS Reader</h1>
-      <form class="form-inline" id="inputForm">
-        <div class="form-group">
-          <label for="inputRss">New RSS</label>
-          <input type="text" id="feedInput" class="form-control mx-sm-4 mb-3 mb-sm-0">
-          <button type="submit" class="btn btn-primary" disabled>Add</button>
+      <form class="" id="inputForm">
+        <div class="form-row mb-3">
+          <div class="col-md-8">
+            <label for="inputRss">New RSS</label>
+            <input type="text" id="feedInput" class="form-control">
+            <div class="small text-muted font-italic" id="inputStatus" style="margin-top: 0.3rem">Input valid URL-address</div>
+          </div>
+          <div class="col-md-4 align-self-end  mb-0 mt-3 mb-md-4">
+            <button type="submit" class="btn btn-primary" disabled>Add</button>
+          </div>
         </div>
+
       </form>
     </div>
 
