@@ -38,7 +38,8 @@ export default () => {
   });
 
 
+  // addNewFeed('http://feeds.bbci.co.uk/news/rss.xml');
+  // addNewFeed('https://www.eurekalert.org/rss/technology_engineering.xml');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=30');
-  // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second');
 };

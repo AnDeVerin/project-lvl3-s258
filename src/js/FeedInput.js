@@ -67,7 +67,7 @@ export default class FeedInput {
   clearFormState() {
     this.field.classList.remove('is-valid');
     this.field.classList.remove('is-invalid');
-    this.status.textContent = 'Input valid URL-address';
+    this.status.textContent = 'Input URL-address';
     this.status.classList.remove('text-danger');
     this.status.classList.remove('text-success');
     this.status.classList.add('text-muted');
