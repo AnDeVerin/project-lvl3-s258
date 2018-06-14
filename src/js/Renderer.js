@@ -26,9 +26,15 @@ export default class Renderer {
       const articlesInChannelHtml = items.map((item) => {
         const [title] = [...item.getElementsByTagName('title')];
         const [link] = [...item.getElementsByTagName('link')];
-        return `<a href="${link.textContent}" 
-          class="list-group-item list-group-item-action" 
-          target="_blank">${title.textContent}</a>`;
+        const [description] = [...item.getElementsByTagName('description')];
+        return `
+          <li class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+            <a href="${link.textContent}" target="_blank">${title.textContent}</a>
+            <a href="#" class="badge badge-light"
+              data-toggle="modal" 
+              data-target="#descModal"
+              data-description="${description.textContent}">Description</a>
+          </li>`;
       });
       listHtml.push(articlesInChannelHtml.join(''));
     });

@@ -1,3 +1,4 @@
+import $ from 'jquery';
 import FeedInput from './FeedInput';
 import FeedLoader from './FeedLoader';
 import State from './State';
@@ -5,6 +6,8 @@ import Renderer from './Renderer';
 
 
 export default () => {
+  $('#myModal').modal();
+
   const appRoot = document.getElementById('app');
   if (!appRoot) return;
 
@@ -17,6 +20,7 @@ export default () => {
   const addNewFeed = (url) => {
     FeedLoader.getDoc(url)
       .then((doc) => {
+        // console.log(doc);
         const channel = doc.getElementsByTagName('channel')[0];
         state.addFeed(url, channel);
         renderer.renderFeedList(state);
@@ -37,8 +41,15 @@ export default () => {
     addNewFeed(newFeedUrl);
   });
 
+  // bootstrap modal handler
+  $('#descModal').on('show.bs.modal', function (event) {  // eslint-disable-line
+    const button = $(event.relatedTarget);
+    const description = button.data('description');
+    const modal = $(this);
+    modal.find('.modal-body').text(description);
+  });
 
-  // addNewFeed('http://feeds.bbci.co.uk/news/rss.xml');
+  addNewFeed('http://feeds.bbci.co.uk/news/rss.xml');
   // addNewFeed('https://www.eurekalert.org/rss/technology_engineering.xml');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=30');
