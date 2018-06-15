@@ -1,15 +1,14 @@
 import $ from 'jquery';
+import _ from 'lodash';
 import isURL from 'validator/lib/isURL';
-// import FeedInput from './FeedInput';
 import feedLoader from './feedLoader';
 import State from './State';
 import render from './render';
+import dataParser from './dataParser';
 
 export default () => {
-  const appRoot = document.getElementById('app');
-  if (!appRoot) return;
-
   const state = new State();
+  const appRoot = document.getElementById('app');
 
   // DOM elements
   const formElem = appRoot.querySelector('#inputForm');
@@ -18,13 +17,13 @@ export default () => {
   const articleListElem = appRoot.querySelector('#articleList');
 
   const addNewFeed = (url) => {
-    console.log(url);
     feedLoader.getDoc(url)
       .then((doc) => {
-        const channel = doc.getElementsByTagName('channel')[0];
-        state.addFeed(url, channel);
-        render.feedList(feedListElem, state);
-        render.articleList(articleListElem, state);
+        const channel = dataParser.getChannel(doc);
+        const articles = dataParser.getArticles(doc);
+        state.addFeed(url, channel, articles);
+        render.feedList(feedListElem, state.getFeedList());
+        render.articleList(articleListElem, state.getArticleList());
         render.formState(formElem, 'clean');
       })
       .catch((error) => {
@@ -32,6 +31,34 @@ export default () => {
         console.log(error);
       });
   };
+
+  const updateFeeds = () => {
+    const feeds = state.getFeedUrlList();
+    if (feeds.length === 0) {
+      setTimeout(updateFeeds, 5000);
+    } else {
+      const updateAllFeeds = feeds.map((feed) => {
+        console.log(`Loading ${feed}...`);
+        return feedLoader.getDoc(feed)
+          .then((doc) => {
+            const articlesFromFeed = dataParser.getArticles(doc);
+            const currentArticles = state.getArticleList();
+            const newArticles = _.differenceBy(articlesFromFeed, currentArticles, 'link');
+            if (newArticles.length > 0) {
+              state.addNewArticles(newArticles);
+              render.articleList(articleListElem, state.getArticleList());
+            }
+            console.log(`${newArticles.length} articles added from ${feed}.`);
+          })
+          .catch(error => console.log(error))
+          .finally();
+      });
+      Promise.all(updateAllFeeds).then(() => setTimeout(updateFeeds, 5000));
+    }
+  };
+
+  // start auto-update
+  updateFeeds();
 
   // handlers
   inputElem.addEventListener('input', ({ target }) => {
@@ -60,5 +87,5 @@ export default () => {
   // addNewFeed('http://feeds.bbci.co.uk/news/rss.xml');
   // addNewFeed('https://www.eurekalert.org/rss/technology_engineering.xml');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed');
-  // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=30');
+  // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=4');
 };
