@@ -1,9 +1,56 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Webpack Package</title>
-  </head>
-  <body>
-    <div id="point"></div>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <title>RSS Reader</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+
+<body>
+  <div class="container mt-2" id="app">
+    <div class="jumbotron">
+      <h1 class="display-4">RSS Reader</h1>
+      <form class="" id="inputForm">
+        <div class="form-row mb-3">
+          <div class="col-md-8">
+            <label for="inputRss">New RSS</label>
+            <input type="text" id="feedInput" class="form-control">
+            <div class="small text-muted font-italic" id="inputStatus" style="margin-top: 0.3rem">Input URL-address</div>
+          </div>
+          <div class="col-md-4 align-self-end  mb-0 mt-3 mb-md-4">
+            <button type="submit" class="btn btn-primary" id="submitButton" disabled>Add</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-3">
+        <h4>RSS feeds:</h4>
+        <ul class="list-group list-group-flush" id="feedList"></ul>
+      </div>
+      <div class="col-lg-9 mt-4 mt-lg-0">
+        <h4>Articles:</h4>
+        <ul class="list-group list-group-flush" id="articleList"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="descModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Description</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body mb-4"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
 </html>
