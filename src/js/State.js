@@ -3,11 +3,15 @@ export default class State {
     this.feedList = new Map();
   }
 
+  addFeed(url, channel) {
+    this.feedList.set(url, channel);
+  }
+
   getFeedList() {
     return [...this.feedList.keys()];
   }
 
-  addFeed(url, channel) {
-    this.feedList.set(url, channel);
+  isNotInList(url) {
+    return !this.getFeedList().includes(url);
   }
 }
