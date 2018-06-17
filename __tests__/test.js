@@ -3,7 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import { promisify } from 'util';
-import init from '../src/js/init';
+import init from '../src/js/start';
 
 const readFile = promisify(fs.readFile);
 
