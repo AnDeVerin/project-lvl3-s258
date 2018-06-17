@@ -1,10 +1,11 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import isURL from 'validator/lib/isURL';
-import feedLoader from './feedLoader';
+
 import State from './State';
-import render from './render';
-import dataParser from './dataParser';
+import getDoc from './feedLoader';
+import { getChannel, getArticles } from './dataParser';
+import { renderFeedList, renderArticleList, renderFormState } from './render';
 
 export default () => {
   const state = new State();
@@ -17,17 +18,17 @@ export default () => {
   const articleListElem = appRoot.querySelector('#articleList');
 
   const addNewFeed = (url) => {
-    feedLoader.getDoc(url)
+    getDoc(url)
       .then((doc) => {
-        const channel = dataParser.getChannel(doc);
-        const articles = dataParser.getArticles(doc);
+        const channel = getChannel(doc);
+        const articles = getArticles(doc);
         state.addFeed(url, channel, articles);
-        render.feedList(feedListElem, state.getFeedList());
-        render.articleList(articleListElem, state.getArticleList());
-        render.formState(formElem, 'clean');
+        renderFeedList(feedListElem, state.getFeedList());
+        renderArticleList(articleListElem, state.getArticleList());
+        renderFormState(formElem, 'clean');
       })
       .catch((error) => {
-        render.formState(formElem, 'error');
+        renderFormState(formElem, 'error');
         console.log(error);
       });
   };
@@ -39,14 +40,14 @@ export default () => {
     } else {
       const updateAllFeeds = feeds.map((feed) => {
         console.log(`Loading ${feed}...`);
-        return feedLoader.getDoc(feed)
+        return getDoc(feed)
           .then((doc) => {
-            const articlesFromFeed = dataParser.getArticles(doc);
+            const articlesFromFeed = getArticles(doc);
             const currentArticles = state.getArticleList();
             const newArticles = _.differenceBy(articlesFromFeed, currentArticles, 'link');
             if (newArticles.length > 0) {
               state.addNewArticles(newArticles);
-              render.articleList(articleListElem, state.getArticleList());
+              renderArticleList(articleListElem, state.getArticleList());
             }
             console.log(`${newArticles.length} articles added from ${feed}.`);
           })
@@ -65,15 +66,15 @@ export default () => {
     if (target.value) {
       const isInputValid = isURL(target.value) && state.isNotInList(target.value);
       const inputState = isInputValid ? 'valid' : 'non-valid';
-      render.formState(formElem, inputState);
+      renderFormState(formElem, inputState);
     } else {
-      render.formState(formElem, 'clean');
+      renderFormState(formElem, 'clean');
     }
   });
 
   formElem.addEventListener('submit', (e) => {
     e.preventDefault();
-    render.formState(formElem, 'wait');
+    renderFormState(formElem, 'wait');
     addNewFeed(inputElem.value);
   });
 
@@ -84,7 +85,7 @@ export default () => {
     modal.find('.modal-body').text(description);
   });
 
-  // addNewFeed('http://feeds.bbci.co.uk/news/rss.xml');
+  addNewFeed('http://feeds.bbci.co.uk/news/rss.xml');
   // addNewFeed('https://www.eurekalert.org/rss/technology_engineering.xml');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed');
   // addNewFeed('http://lorem-rss.herokuapp.com/feed?unit=second&interval=4');

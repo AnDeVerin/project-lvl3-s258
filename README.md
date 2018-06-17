@@ -24,17 +24,17 @@
 Задача проекта — создать RSS Reader с автоматическим обновлением.
 
 ---
-## Homepage  
+### Homepage  
 
 [adv-hexlet-3.surge.sh](http://adv-hexlet-3.surge.sh/)
 
-## Setup
+### Setup
 
 ```sh
 make install
 ```
 
-## Run
+### Run
 
 ```sh
 make develop
